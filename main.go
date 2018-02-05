@@ -44,7 +44,7 @@ func findFileByKeyword(dirPath string, keyword string) {
 			ext := filepath.Ext(path)
 			if ext == ".docx" {
 				if isWordExist(path, keyword) {
-					result = info.Name() + "\n"
+					result = result + info.Name() + "\n"
 				}
 			}
 		}
