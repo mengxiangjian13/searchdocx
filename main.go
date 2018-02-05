@@ -60,16 +60,19 @@ func isWordExist(path string, keyword string) bool {
 	if err == nil {
 		docx := docReplace.Editable()
 		content := docx.TotalContent()
-		ret := ""
 		r, _ := regexp.Compile("<w:t>[\\s\\S]*?</w:t>")
 		rs := r.FindAllString(content, -1)
+		exist := false
 		for i := 0; i < len(rs); i++ {
 			v := rs[i]
 			temp := strings.Replace(v, "<w:t>", "", -1)
 			temp = strings.Replace(temp, "</w:t>", "", -1)
-			ret = ret + temp + " "
+			if strings.Contains(temp, keyword) {
+				exist = true
+				break
+			}
 		}
-		return strings.Contains(ret, keyword)
+		return exist
 	} else {
 		fmt.Print(err)
 		return false
